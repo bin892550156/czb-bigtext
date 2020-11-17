@@ -8,6 +8,11 @@ import java.io.*;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * 大文本文件操作类，提供与{@link String}类似的操作文本方法
+ * @author chenzhuobin
+ * @since 2020/11/17 0017
+ */
 public class CzbBigText {
 
 

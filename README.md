@@ -34,6 +34,9 @@
  */
 public class CzbBigTextTest {
 
+    /**
+     * 大文本文件操作类，提供与{@link String}类似的操作文本方法
+     */
     CzbBigText czbBigText;
     /**
      * 源文本文件
@@ -48,6 +51,10 @@ public class CzbBigTextTest {
         czbBigText=new CzbBigText(srcTextfile);
     }
 
+    /**
+     * 从第一个字符为开始查找 target 本文中第一个匹配项的索引
+     * <p>对应 {@link String#indexOf(String)}</p>
+     */
     @Test
     public void test_indexOf(){
         String target="防身的武器";
@@ -56,22 +63,25 @@ public class CzbBigTextTest {
         Assert.assertEquals(czbBigText.indexOf(target,10),content.indexOf(target,10));
     }
 
+    /**
+     * 获取该文本文件的文本字符数【包含回车换行】
+     */
     @Test
     public void test_length(){
         Assert.assertEquals(czbBigText.length(),readFileContent().length());
     }
 
+    /**
+     * 获取该文本文件的文本字符数【不包含回车换行】
+     */
     @Test
     public void test_lengthNoCRLF(){
         Assert.assertEquals(czbBigText.lengthNoCRLF(),reaFileContentNoCRLF().length());
     }
 
-    @Test
-    public void test_readFileContent(){
-        String content = readFileContent();
-        System.out.println(content);
-    }
-
+    /**
+     * 获取 source 的尾部匹配到 target 的开头部分时，target 剩余未匹配的字符数
+     */
     @Test
     public void test_detemineTailAppendCharCount(){
         String source="hello world";
@@ -81,6 +91,9 @@ public class CzbBigTextTest {
     }
 
 
+    /**
+     * 将本文的 oldStr 覆盖成 newStr
+     */
     @Test
     public void test_replace(){
         String oldStr="如乌龟形的、山形的、触须形的……还有五颜六色的花朵，如鲜红的，嫩黄的，湛蓝的……我们家族的";
@@ -88,6 +101,9 @@ public class CzbBigTextTest {
         Assert.assertEquals(readFileContent(czbBigText.replace(oldStr,newStr)), readFileContent().replace(oldStr,newStr ));
     }
 
+    /**
+     * 使用 splitStr 作为分隔符 对本文进行切分成多个文本文件
+     */
     @Test
     public void test_split(){
         String[] contentArr = readFileContent().split("我");
@@ -100,6 +116,9 @@ public class CzbBigTextTest {
         }
     }
 
+    /**
+     * 使用 splitStr 作为分隔符 对本文进行切分成多个文本文件
+     */
     @Test
     public void test_split2(){
         String[] contentArr = readFileContent().split("左右哦");
@@ -112,6 +131,10 @@ public class CzbBigTextTest {
         }
     }
 
+    /**
+     * 使用 splitStr 作为分隔符 对本文进行切分成多个文本文件，并限制最大分割数
+     * 当达到分割数后，即使可以分割，也不会再分割
+     */
     @Test
     public void test_splitLimit(){
         String[] contentArr = readFileContent().split("我",3);
@@ -124,6 +147,9 @@ public class CzbBigTextTest {
         }
     }
 
+    /**
+     * 连接本文内容和 joinFiles 的文本内容，形成一个新的文本文件
+     */
     @Test
     public void test_joinFile(){
         String delimiter="\r\n-czbczbczbczbczbczbczbczbczbczbczbczbczbczbczb-\r\n";
@@ -134,6 +160,9 @@ public class CzbBigTextTest {
                         delimiter + readFileContent(file2));
     }
 
+    /**
+     * 连接本文内容和 joinStrs 的文本内容，形成一个新的文本文件
+     */
     @Test
     public void test_joinTest(){
         String delimiter="\r\n-czbczbczbczbczbczbczbczbczbczbczbczbczbczbczb-\r\n";
@@ -144,6 +173,9 @@ public class CzbBigTextTest {
                 delimiter + str2);
     }
 
+    /**
+     * 将 str 插入到文本的 offset 索引后面
+     */
     @Test
     public void test_insert(){
         boolean expectThrow=false;
@@ -168,6 +200,9 @@ public class CzbBigTextTest {
         Assert.assertEquals(expectThrow,faceThrow);
     }
 
+    /**
+     * 将指定文本文件的文本内容 插入该文本的 offset 索引后面
+     */
     @Test
     public void test_appendFile(){
         File newFile = new File("../psd/new.txt");
@@ -175,16 +210,25 @@ public class CzbBigTextTest {
                 new StringBuffer(readFileContent()).insert(200,readFileContent(newFile)).toString());
     }
 
+    /**
+     * 将该文件的文本内容的所有字母转换成小写字母
+     */
     @Test
     public void test_toLowerCase(){
         Assert.assertEquals(readFileContent(czbBigText.toLowerCase()),readFileContent().toLowerCase());
     }
 
+    /**
+     * 将该文件的文本内容的所有字母转换成大写字母
+     */
     @Test
     public void test_toUpperCase(){
         Assert.assertEquals(readFileContent(czbBigText.toUpperCase()),readFileContent().toUpperCase());
     }
 
+    /**
+     * 修剪该文件文本内容的开头和结尾，将开头和接口的空格去掉
+     */
     @Test
     public void test_trim(){
         String trimStr = readFileContent(czbBigText.trim());
@@ -192,11 +236,17 @@ public class CzbBigTextTest {
         Assert.assertFalse(trimStr.endsWith(" "));
     }
 
+    /**
+     * 修剪该文件文本内容的开头和结尾，将开头和接口的空格，回车换行去掉
+     */
     @Test
     public void test_trimNoCRLF(){
         Assert.assertEquals(readFileContent(czbBigText.trimNoCRLF()),readFileContent().trim());
     }
 
+    /**
+     * 截取在该文本从 begin 到 end 范围内的文本内容
+     */
     @Test
     public void test_substr(){
         String content = readFileContent();
@@ -273,7 +323,7 @@ public class CzbBigTextTest {
      */
     public String readFileContent(File file){
         FileReader reader = null;
-        StringBuffer sbf = new StringBuffer();
+        StringBuilder sbf = new StringBuilder();
         try {
             reader = new FileReader(file);
             int temp;
