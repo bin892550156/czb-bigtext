@@ -17,9 +17,9 @@ public class CzbBigText {
 
 
     /**
-     * 每段文本最大字符长度,默认长度：2000
+     * 每段文本最大字符长度,默认长度：1000
      */
-    private final static int MAX_SEGMENT_LENGTH=20;
+    private final static int MAX_SEGMENT_LENGTH=1000;
 
     /**
      * 默认编码：utf-8
@@ -56,8 +56,8 @@ public class CzbBigText {
      */
     public CzbBigText(File srcTextFile) {
         this.srcTextFile = srcTextFile;
-        readFileDelegate=new ReadFileDelegate(srcTextFile,MAX_SEGMENT_LENGTH,CHARSET);
-        tempFileGenerator=new TempFileGenerator(srcTextFile);
+        this.readFileDelegate=new ReadFileDelegate(srcTextFile,MAX_SEGMENT_LENGTH,CHARSET);
+        this.tempFileGenerator=new TempFileGenerator(srcTextFile);
     }
 
     /**
@@ -68,6 +68,7 @@ public class CzbBigText {
     public CzbBigText(File srcTextFile, TempFileGenerator tempFileGenerator) {
         this.srcTextFile = srcTextFile;
         this.tempFileGenerator = tempFileGenerator;
+        this.readFileDelegate=new ReadFileDelegate(srcTextFile,MAX_SEGMENT_LENGTH,CHARSET);
     }
 
     /**
@@ -80,6 +81,17 @@ public class CzbBigText {
         this.srcTextFile = srcTextFile;
         this.readFileDelegate = readFileDelegate;
         this.tempFileGenerator = tempFileGenerator;
+    }
+
+    /**
+     * 新建一个 {@link CzbBigText} 实例
+     * @param srcTextFile 源文本文件
+     * @param readFileDelegate 按段读取文本文件的助手
+     */
+    public CzbBigText(File srcTextFile, ReadFileDelegate readFileDelegate) {
+        this.srcTextFile = srcTextFile;
+        this.readFileDelegate = readFileDelegate;
+        this.tempFileGenerator=new TempFileGenerator(srcTextFile);
     }
 
     /**
