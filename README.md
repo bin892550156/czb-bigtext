@@ -48,7 +48,7 @@ public class CzbBigTextTest {
     @Before
     public void init(){
         srcTextfile = new File("../psd/zuowen.txt");
-        czbBigText=new CzbBigText(srcTextfile);
+        czbBigText=new CzbBigText(srcTextfile,new ReadFileDelegate(srcTextfile,20,"utf-8"));
     }
 
     /**
